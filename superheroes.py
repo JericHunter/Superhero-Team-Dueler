@@ -65,11 +65,55 @@ class Hero:
         for hero in self.abilities:
             total_damage += hero.attack()
         return total_damage
+        pass
+
     def add_armor(self, armor):
         self.armors.append(armor)
+        pass
+
     def defend(self):
         total_defense = 0
         for hero in self.armors:
             total_defense += hero.block()
         return total_defense
-        
+        pass
+
+    def take_damage(self, damage):
+        self.current_health -= damage
+        pass
+    def is_alive(self):
+        if self.current_health > 0:
+            return True
+        else:
+            return False
+        pass
+    def fight(self, opponent):
+        while self.is_alive() and opponent.is_alive():
+            hero_attack = self.attack()
+            opponent_attack = opponent.attack()
+            self.take_damage(opponent_attack)
+            opponent.take_damage(hero_attack)
+        if self.is_alive() == False and opponent.is_alive() == False:
+            print("Draw!")
+        elif opponent.is_alive() == False:
+            print(f'{self.name} won')
+        elif self.is_alive() == False:
+            print(f'{opponent.name} won')
+  # TODO: Fight each hero until a victor emerges.
+  # Print the victor's name to the screen.
+        pass
+if __name__ == "__main__":
+        # If you run this file from the terminal
+        # this block is executed.
+
+            hero1 = Hero("Wonder Woman", 1000)
+            hero2 = Hero("Dumbledore", 1000)
+            ability1 = Ability("Super Speed", 300)
+            ability2 = Ability("Super Eyes", 130)
+            ability3 = Ability("Wizard Wand", 80)
+            ability4 = Ability("Wizard Beard", 20)
+            hero1.add_ability(ability1)
+            hero1.add_ability(ability2)
+            hero2.add_ability(ability3)
+            hero2.add_ability(ability4)
+            hero1.fight(hero2)
