@@ -60,18 +60,16 @@ class Hero:
         self.abilities.append(ability)
   # TODO: Add ability object to abilities:List
         pass
-    
-
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    my_hero = Hero("Grace Hopper", 200)
-    print(my_hero.name)
-    print(my_hero.current_health)
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    ability = Ability("Great Debugging", 50)
-    hero = Hero("Grace Hopper", 200)
-    hero.add_ability(ability)
-    print(hero.abilities)
+    def attack(self):
+        total_damage = 0
+        for hero in self.abilities:
+            total_damage += hero.attack()
+        return total_damage
+    def add_armor(self, armor):
+        self.armors.append(armor)
+    def defend(self):
+        total_defense = 0
+        for hero in self.armors:
+            total_defense += hero.block()
+        return total_defense
+        
