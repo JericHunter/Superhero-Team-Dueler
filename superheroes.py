@@ -15,12 +15,11 @@ class Ability:
       # Return an attack value between 0 and the full attack.
       # Hint: The constructor initializes the maximum attack value.
       pass
-if __name__ == "__main__":
-        # If you run this file from the terminal
-        # this block is executed.
-    ability = Ability("Debugging Ability", 20)
-    print(ability.name)
-    print(ability.attack())
+
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.max_damage // 2, self.max_damage)
+        pass
 
 class Armor:
     def __init__(self, name, max_block):
@@ -38,7 +37,7 @@ class Armor:
         return random.randint(0,self.max_block)
         pass
 class Hero:
-    def __init__(self, name, current_health, starting_health = 100):
+    def __init__(self, name, starting_health = 100):
         '''Instance properties:
              abilities: List
              armors: List
@@ -50,7 +49,7 @@ class Hero:
         self.armors = []
         self.name =  name
         self.starting_health = starting_health
-        self.current_health = current_health
+        self.current_health = starting_health
       # TODO: Initialize instance variables values as instance variables
       # (Some of these values are passed in above,
       # others will need to be set at a starting value)
@@ -102,6 +101,39 @@ class Hero:
   # TODO: Fight each hero until a victor emerges.
   # Print the victor's name to the screen.
         pass
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.heroes = []
+    def add_hero(self, hero):
+        '''Add Hero object to self.heroes.'''
+  # TODO: Add the Hero object that is passed in to the list of heroes in
+  # self.heroes
+        self.heroes.append(hero)
+        pass
+    def remove_hero(self, name):
+        '''Remove hero from heroes list.
+        If Hero isn't found return 0.
+        '''
+        # TODO: Implement this method to remove the hero from the list given their name.
+        findhero = False
+        for hero in self.heroes:
+            if name == hero.name:
+                self.heroes.remove(hero)
+        if findhero == False:
+                return 0
+        pass
+    def view_all_heroes(self):
+        '''Prints out all heroes to the console.'''
+        # TODO: Loop over the list of heroes and print their names to the terminal.
+        all_heroes = []
+        for hero in self.heroes:
+            all_heroes.append(hero.name)
+        print(all_heroes)
+
+        pass
+
+
 if __name__ == "__main__":
         # If you run this file from the terminal
         # this block is executed.
