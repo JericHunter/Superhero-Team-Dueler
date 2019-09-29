@@ -8,7 +8,7 @@ class Ability:
        # TODO: Instantiate the variables listed in the docstring with then
        # values passed in
 # myAbility = Ability("Goated",random.randint(2,7))
-        
+
     def attack(self):
       ''' Return a value between 0 and the value set by self.max_damage.'''
       # TODO: Use random.randint(a, b) to select a random attack value.
@@ -189,8 +189,17 @@ class Team:
         # member of the team to the screen.
         # This data must be output to the console.
         # Hint: Use the information stored in each hero.
+        kd = 0
+        total_kills = 0
+        total_deaths = 0
         for hero in self.heroes:
-            print(f" Hero: {hero.name} Kills: {hero.kills} Deaths: {hero.deaths} KD: {hero.kills/hero.deaths}")
+            total_kills += hero.kills
+            total_deaths += hero.deaths
+        if total_deaths == 0:
+            kd = total_kills
+        else:
+            kd = total_kills/total_deaths
+        return kd
 
 class Arena:
     def __init__(self):
@@ -198,8 +207,8 @@ class Arena:
             team_one: None
             team_two: None
         '''
-        self.team_one = None
-        self.team_two = None
+        self.team_one = []
+        self.team_two = []
         # TODO: create instance variables named team_one and team_two that
         # will hold our teams.
     def create_ability(self):
@@ -226,23 +235,22 @@ class Arena:
         return new_Hero
 
     def build_team_one(self):
-        name = input("Enter a name for Team 1: ")
-        numHeroes = int(input("Enter number of heroes: "))
-
-        self.team_one = Team(name)
-
-        for i in range(numHeroes):
-            self.team_one.add_hero(self.create_hero)
+        team_name = input("Team 1 name: ")
+        team_one = Team(team_name)
+        num_heroes = int(input("Number of heroes in Team 1: "))
+        for index in range(num_heroes):
+            hero = self.create_hero()
+            team_one.add_hero(hero)
+        self.team_one = team_one
 
     def build_team_two(self):
-        name = input("Enter a name for Team 2: ")
-        numHeroes = int(input("Enter number of heroes: "))
-
-        self.team_two = Team(name)
-
-        for i in range(numHeroes):
-            self.team_two.add_hero(self.create_hero)
-
+        team_name = input("Team 2 name: ")
+        team_two = Team(team_name)
+        num_heroes = int(input("Number of heroes in Team 2: "))
+        for index in range(num_heroes):
+            hero = self.create_hero()
+            team_two.add_hero(hero)
+        self.team_two = team_two
     def team_battle(self):
         self.team_one.attack(self.team_two)
 
@@ -264,21 +272,19 @@ class Arena:
             print(f"Victor is team {self.team_one.name}")
             print("The Survivors are: ")
             for hero in self.team_one.heroes:
-                if hero.current_health > 0:
+                if hero.is_alive():
                     print(hero.name)
         elif teamB == False:
             print(f"Victor is team {self.team_two.name}")
             print("The Survivors are: ")
             for hero in self.team_two.heroes:
-                if hero.current_health > 0:
+                if hero.is_alive():
                     print(hero.name)
         elif teamA == teamB:
             print("DRAW!")
 
-        print(f"Team {self.team_one.name} stats: ")
-        self.team_one.stats()
-        print(f"Team {self.team_two.name} stats: ")
-        self.team_two.stats()
+        print(f'Team One KDR: {self.team_one.stats()}')
+        print(f'Team Two KDR: {self.team_two.stats()}')
 
 
 # if __name__ == "__main__":
