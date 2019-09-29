@@ -1,3 +1,4 @@
+from random import randint,choice
 import random
 
 class Ability:
@@ -50,6 +51,8 @@ class Hero:
         self.name =  name
         self.starting_health = starting_health
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
       # TODO: Initialize instance variables values as instance variables
       # (Some of these values are passed in above,
       # others will need to be set at a starting value)
@@ -96,11 +99,30 @@ class Hero:
             print("Draw!")
         elif opponent.is_alive() == False:
             print(f'{self.name} won')
+            self.add_kill(1)
+            opponent.add_deaths(1)
         elif self.is_alive() == False:
             print(f'{opponent.name} won')
+            opponent.add_kill(1)
+            self.add_deaths(1)
   # TODO: Fight each hero until a victor emerges.
   # Print the victor's name to the screen.
+
+    #TODO: Refactor this method to update the
+    # number of kills the hero has when the opponent dies.
+    # Also update the number of deaths for whoever dies in the fight
         pass
+    def add_kill(self, num_kills):
+        ''' Update kills with num_kills'''
+    # TODO: This method should add the number of kills to self.kills
+        self.kills += num_kills
+    pass
+    def add_deaths(self, num_deaths):
+        ''' Update deaths with num_deaths'''
+    # TODO: This method should add the number of deaths to self.deaths
+        self.deaths += num_deaths
+
+    pass
 class Team:
     def __init__(self, name):
         self.name = name
@@ -116,13 +138,12 @@ class Team:
         If Hero isn't found return 0.
         '''
         # TODO: Implement this method to remove the hero from the list given their name.
-        findhero = False
         for hero in self.heroes:
             if name == hero.name:
                 self.heroes.remove(hero)
-        if findhero == False:
-                return 0
-        pass
+            else:
+                pass
+        return 0
     def view_all_heroes(self):
         '''Prints out all heroes to the console.'''
         # TODO: Loop over the list of heroes and print their names to the terminal.
@@ -131,6 +152,37 @@ class Team:
             all_heroes.append(hero.name)
         print(all_heroes)
 
+        pass
+    # Keep all your current code, but add these methods
+    def attack(self, other_team):
+        ''' Battle each team against each other.'''
+        # TODO: Randomly select a living hero from each team and have
+        # them fight until one or both teams have no surviving heroes.
+        # Hint: Use the fight method in the Hero class.
+        # attacking = True
+        # while attacking:
+        #Randomly assigns order for the heroes to battle
+        heroA = self.heroes[random.randint(0, (len(self.heroes))-1)]
+        heroB = other_team.heroes[random.randint(0, (len(other_team.heroes))-1)]
+        heroA.fight(heroB)
+        pass
+
+    def revive_heroes(self, health=100):
+        ''' Reset all heroes health to starting_health'''
+        # TODO: This method should reset all heroes health to their
+        # original starting value.
+        for hero in self.heroes:
+            hero.current_health = health
+        pass
+
+    def stats(self):
+        '''Print team statistics'''
+        # TODO: This method should print the ratio of kills/deaths for each
+        # member of the team to the screen.
+        # This data must be output to the console.
+        # Hint: Use the information stored in each hero.
+        for hero in self.heroes:
+            print(f" Hero: {hero.name} Kills: {hero.kills} Deaths: {hero.deaths} KD: {hero.kills/hero.deaths}")
         pass
 
 
