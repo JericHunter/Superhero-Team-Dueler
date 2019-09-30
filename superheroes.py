@@ -229,9 +229,18 @@ class Arena:
     def create_hero(self):
         name = input("Enter a Hero name: ")
         new_Hero = Hero(name, starting_health=100)
-        new_Hero.add_ability(self.create_ability())
-        new_Hero.add_weapon(self.create_weapon())
-        new_Hero.add_armor(self.create_armor())
+        want_ability = input("Do you want an ability? Y or N:  ")
+        want_weapon = input("Do you want a weapon? Y or N:  ")
+        want_armor = input("Do you want armor? Y or N:  ")
+        if want_ability == "Y":
+            new_Hero.add_ability(self.create_ability())
+        if want_weapon == "Y":
+            new_Hero.add_weapon(self.create_weapon())
+        if want_armor == "Y":
+            new_Hero.add_armor(self.create_armor())
+        # new_Hero.add_ability(self.create_ability())
+        # new_Hero.add_weapon(self.create_weapon())
+        # new_Hero.add_armor(self.create_armor())
         return new_Hero
 
     def build_team_one(self):
@@ -269,18 +278,20 @@ class Arena:
         teamB = self.team_dead(self.team_two.heroes)
 
         if teamA == False:
-            print(f"Victor is team {self.team_one.name}")
+            print(f"Victor is Team {self.team_one.name}")
             print("The Survivors are: ")
             for hero in self.team_one.heroes:
                 if hero.is_alive():
                     print(hero.name)
         elif teamB == False:
-            print(f"Victor is team {self.team_two.name}")
+            print(f"Victor is Team {self.team_two.name}")
             print("The Survivors are: ")
             for hero in self.team_two.heroes:
                 if hero.is_alive():
                     print(hero.name)
-        elif teamA == teamB:
+                else:
+                    print("None bro, all my friends are dead")
+        elif teamA == False and teamB == False:
             print("DRAW!")
 
         print(f'Team One KDR: {self.team_one.stats()}')
