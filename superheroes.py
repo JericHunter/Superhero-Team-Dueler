@@ -105,11 +105,11 @@ class Hero:
         if self.is_alive() == False and opponent.is_alive() == False:
             print("Draw!")
         elif opponent.is_alive() == False:
-            print(f'{self.name} won')
+            # print(f'{self.name} won')
             self.add_kill(1)
             opponent.add_deaths(1)
         elif self.is_alive() == False:
-            print(f'{opponent.name} won')
+            # print(f'{opponent.name} won')
             opponent.add_kill(1)
             self.add_deaths(1)
   # TODO: Fight each hero until a victor emerges.
