@@ -278,13 +278,13 @@ class Arena:
         teamB = self.team_dead(self.team_two.heroes)
 
         if teamA == False:
-            print(f"Victor is Team {self.team_one.name}")
+            print(f"Victor is Team {self.team_two.name}")
             print("The Survivors are: ")
             for hero in self.team_one.heroes:
                 if hero.is_alive():
                     print(hero.name)
         elif teamB == False:
-            print(f"Victor is Team {self.team_two.name}")
+            print(f"Victor is Team {self.team_one.name}")
             print("The Survivors are: ")
             for hero in self.team_two.heroes:
                 if hero.is_alive():
