@@ -69,10 +69,6 @@ class Hero:
         return total_damage
 
 
-    def add_armor(self, armor):
-        self.armors.append(armor)
-
-
     def add_weapon(self, weapon):
         self.abilities.append(weapon)
 
@@ -230,12 +226,12 @@ class Arena:
         name = input("Enter a Hero name: ")
         new_Hero = Hero(name, starting_health=100)
         want_ability = input("Do you want an ability? Y or N:  ")
-        want_weapon = input("Do you want a weapon? Y or N:  ")
-        want_armor = input("Do you want armor? Y or N:  ")
         if want_ability == "Y":
             new_Hero.add_ability(self.create_ability())
+        want_weapon = input("Do you want a weapon? Y or N:  ")
         if want_weapon == "Y":
             new_Hero.add_weapon(self.create_weapon())
+        want_armor = input("Do you want armor? Y or N:  ")
         if want_armor == "Y":
             new_Hero.add_armor(self.create_armor())
         # new_Hero.add_ability(self.create_ability())
@@ -280,13 +276,13 @@ class Arena:
         if teamA == False:
             print(f"Victor is Team {self.team_two.name}")
             print("The Survivors are: ")
-            for hero in self.team_one.heroes:
+            for hero in self.team_two.heroes:
                 if hero.is_alive():
                     print(hero.name)
         elif teamB == False:
             print(f"Victor is Team {self.team_one.name}")
             print("The Survivors are: ")
-            for hero in self.team_two.heroes:
+            for hero in self.team_one.heroes:
                 if hero.is_alive():
                     print(hero.name)
                 else:
